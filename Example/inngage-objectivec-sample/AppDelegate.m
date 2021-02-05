@@ -11,8 +11,8 @@
 #import <Inngage/PushNotificationManager.h>
 
 @interface AppDelegate (){
-    PushNotificationManager * manager;
-    NSDictionary* userInfoDict;
+    PushNotificationManager *manager;
+    NSDictionary *userInfoDict;
 }
 
 @end
@@ -29,7 +29,7 @@
     
     manager = [PushNotificationManager sharedInstance];
     
-    manager.inngageAppToken = @"73f5bdfe7b252551e6d892445fd8fcae";
+    manager.inngageAppToken = @"APP_TOKEN";
     manager.inngageApiEndpoint = @"https://api.inngage.com.br/v1";
     manager.defineLogs = YES;
 //    manager.enabledShowAlertWithUrl = NO;
@@ -47,13 +47,9 @@
     return YES;
 }
 
-
-
 - (void)applicationWillResignActive:(UIApplication *)application {
-    
    
 }
-
 
 - (void)applicationDidEnterBackground:(UIApplication *)application {
 
@@ -73,13 +69,11 @@
 
 }
 
-
 - (void)applicationWillTerminate:(UIApplication *)application {
     // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
 }
 
-- (void)application:(UIApplication *)application didRegisterUserNotificationSettings: (UIUserNotificationSettings
-                                                                                       *)notificationSettings
+- (void)application:(UIApplication *)application didRegisterUserNotificationSettings:(UIUserNotificationSettings *)notificationSettings
 {
     [application registerForRemoteNotifications];
     
@@ -88,26 +82,14 @@
 
 - (void)application:(UIApplication *)application
 didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-
-    NSUInteger length = deviceToken.length;
-    const unsigned char *buffer = deviceToken.bytes;
-    NSMutableString *hexString  = [NSMutableString stringWithCapacity:(length * 2)];
-    for (int i = 0; i < length; ++i) {
-        [hexString appendFormat:@"%02x", buffer[i]];
-    }
     
-    NSLog(@"The generated device token string is : %@", [hexString copy]);
+    NSDictionary *jsonBody = @{ @"Nome":@"XXX" };
     
-    NSDictionary *jsonBody = @{ //@"Phone":@"983223812",
-                                @"Nome":@"Augusto Reis2"
-//                                @"Email":@"reis-augusto@hotmail.com",
-                                };
-    
-    [manager handlePushRegistration:deviceToken identifier: @"reis-augusto@hotmail.com" customField:jsonBody];
+    [manager handlePushRegistration:deviceToken identifier: @"USER_IDENTIFIER" customField:jsonBody];
     
     if (userInfoDict != nil)
     {
-        [manager handlePushReceived:userInfoDict messageAlert:true];
+        [manager handlePushReceived:userInfoDict messageAlert:YES];
         
     }
 }
@@ -123,7 +105,7 @@ didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
 - (void)application:(UIApplication *)application
 didReceiveRemoteNotification:(NSDictionary *)userInfo {
     
-    [manager handlePushReceived:userInfo messageAlert:true];
+    [manager handlePushReceived:userInfo messageAlert:YES];
 }
 
 @end
