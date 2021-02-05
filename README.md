@@ -165,4 +165,7 @@ Uma nova sequência de arquivos será gerada. Caso o projeto seja na linguagem O
 
 > É necessário importar a seguinte classe: `#import <Inngage/NotificationManager.h>`.
 
+No arquivo de `Info.plist` é necessário informar um novo atributo, na seguinte categoria: `NSExtension`-> `NSExtensionAttributes`, com a seguinte chave `UNNotificationExtensionUserInteractionEnabled` e valor `YES`. Esse atributo permitirá que rich push notification tenham interações pelo usuário.
+
+
 Estre trecho de código irá realizar a configuração de Rich push notification quando houver interação do usuário por force touch ou long press na bandeja de notificações do sistema. Assim podendo ser apresentado para o usuário imagens (jpg, png, gif) e videos (mp4).
