@@ -2,11 +2,11 @@ platform :ios, '11.4'
 use_frameworks!
 
 target 'inngage-objectivec-sample' do
-  pod 'Inngage/Core', :path => '../'
+  pod 'Inngage/Core', :path => '../../'
 end
 
 def extension_pods 
-  pod 'Inngage/NotificationExtension', :path => '../'
+  pod 'Inngage/NotificationExtension', :path => '../../'
 end
 
 target 'NotificationServiceExtension' do
