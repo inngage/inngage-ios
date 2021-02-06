@@ -1,0 +1,22 @@
+PODS:
+  - Inngage/Core (1.0.0):
+    - Inngage/Shared
+  - Inngage/NotificationExtension (1.0.0):
+    - Inngage/Core
+    - Inngage/Shared
+  - Inngage/Shared (1.0.0)
+
+DEPENDENCIES:
+  - Inngage/Core (from `../../`)
+  - Inngage/NotificationExtension (from `../../`)
+
+EXTERNAL SOURCES:
+  Inngage:
+    :path: "../../"
+
+SPEC CHECKSUMS:
+  Inngage: 4c132d68f3379ae712e11af34f706f31f4d904d2
+
+PODFILE CHECKSUM: 95037d4514c18fc0d3818cdc32d11c38349dd205
+
+COCOAPODS: 1.9.3

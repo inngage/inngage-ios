@@ -38,6 +38,8 @@ Depois só executar o comando `pod install` no terminal, na pasta do projeto. A 
 
 # Configuração
 
+> Para configuração utilizando o projeto em Objective-C, consulte o arquivo `README_ObjectiveC.md`.
+
 ## Projeto
 
 É necessário configurar o projeto para que possua o `Capabilities`, que se encontra no arquivo `.xcproject` aberto direto pela raiz do projeto no `Xcode` na aba `Signing & Capabilities`. Habilitando o `Push notification` e o `Background modes` os atributos `Background fetch` e `Remote notifications`.
@@ -46,85 +48,66 @@ Depois só executar o comando `pod install` no terminal, na pasta do projeto. A 
 
 No projeto, no arquivo `AppDelegate` é necessário fazer algumas configurações para o funcionamento do SDK, para sincronia com a plataforma Inngage.
 
-É necessário importar o SDK: `#import <Inngage/PushNotificationManager.h>`
+É necessário importar o SDK: `import Inngage`
 
 Incluindo as seguintes variáveis de classe.
-```objc 
-@interface AppDelegate (){
-    PushNotificationManager *manager;
-    NSDictionary *userInfoDict;
-}
+```swift 
+var pushNotificationManager = PushNotificationManager.sharedInstance()
+var userInfoDictionary: [String: Any]?
 ```
 
-```objc
-- (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-    
-  [[UIApplication sharedApplication] registerUserNotificationSettings:[UIUserNotificationSettings settingsForTypes:
-                                                                        (UIUserNotificationTypeSound | UIUserNotificationTypeAlert | UIUserNotificationTypeBadge) categories:nil]];
-    
-  manager = [PushNotificationManager sharedInstance];
-    
-  manager.inngageAppToken = @"APP_TOKEN";
-  manager.inngageApiEndpoint = @"https://api.inngage.com.br/v1";
-  manager.defineLogs = YES;
-  manager.enabledShowAlertWithUrl = NO;
-  manager.enabledAlert = NO;
+```swift
+func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-  userInfoDict = [launchOptions objectForKey:UIApplicationLaunchOptionsRemoteNotificationKey];
+    pushNotificationManager?.inngageAppToken = "APP_TOKEN"
+    pushNotificationManager?.inngageApiEndpoint = "https://api.inngage.com.br/v1"
+    pushNotificationManager?.defineLogs = true
+    pushNotificationManager?.enabledShowAlertWithUrl = false
+    pushNotificationManager?.enabledAlert = false
 
-  return YES;
+    if let userInfo = launchOptions?[UIApplication.LaunchOptionsKey.remoteNotification] as? [String: Any] {
+        self.userInfoDictionary = userInfo
+    }
+
+    return true
 }
-
 ```
 
 É necessário inserir o Token disponibilizado no console do Inngage para o direcionamento das chamadas do seu applicativo.
 Algumas variáveis estão disponíveis para configuração do SDK.
 
-- `defineLogs` (BOOL): Permite a visualização dos logs no console do Xcode.
-- `enabledAlert` (BOOL): Quando enviado um push notification contendo uma URL, caso o usuário abra a notificação, quando o aplicativo estiver em modo ativo, será mostrado um alerta padrão do sistema, com o titulo e o texto da notificação enviada.
-- `enabledShowAlerWithUrl` (BOOL): Quando enviado um push notification contendo uma URL, o mesmo não mostra um Alert caso seja definido com o valor `false`. Esse atributo funciona quando o atributo `enabledAlert` possui o valor `true`.
-
-```objc
-- (void)application:(UIApplication *)application didRegisterUserNotificationSettings: (UIUserNotificationSettings
-                                                                                       *)notificationSettings
-{
-    [application registerForRemoteNotifications];
-    
-    [manager handlePushRegisterForRemoteNotifications:notificationSettings];
-}
-```
+- `defineLogs` (Bool): Permite a visualização dos logs no console do Xcode.
+- `enabledAlert` (Bool): Quando enviado um push notification, caso o usuário abra a notificação, quando o aplicativo estiver em modo ativo, será mostrado um alerta padrão do sistema, com o titulo e o texto da notificação enviada.
+- `enabledShowAlerWithUrl` (Bool): Quando enviado um push notification contendo uma URL, o mesmo não mostra um Alert caso seja definido com o valor `false`. Esse atributo funciona quando o atributo `enabledAlert` possui o valor `true`.
 
 Este trecho realizará o registro do usuário na API de push notification, assim como as informações de device do mesmo, para disponibilização de novos push.
 
-```objc
-- (void)application:(UIApplication *)application
-didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
+```swift
+func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
 
-    NSDictionary *jsonBody = @{ @"Nome":@"XXX" };
-    
-    [manager handlePushRegistration:deviceToken identifier: @"USER_IDENTIFIER" customField:jsonBody];
-    
-    if (userInfoDict != nil)
-    {
-        [manager handlePushReceived:userInfoDict messageAlert:YES];
-        
+    let userInfo = ["name": "XXX"]
+
+    pushNotificationManager?.handlePushRegistration(deviceToken, identifier: "USER_IDENTIFIER", customField: userInfo)
+
+    if let userInfoDictionary = userInfoDictionary {
+        pushNotificationManager?.handlePushReceived(userInfoDictionary, messageAlert: true)
     }
 }
 ```
 
-```objc
-- (void)application:(UIApplication *)application
-didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
-    NSLog(@"Registration for remote notification failed with error: %@", error.localizedDescription);
-    
-    [manager handlePushRegistrationFailure:error];
-    
-}
+Este trecho registrará os casos de falha do registro de push notification.
 
-- (void)application:(UIApplication *)application
-didReceiveRemoteNotification:(NSDictionary *)userInfo {
-    
-    [manager handlePushReceived:userInfo messageAlert:YES];
+```swift
+func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
+    pushNotificationManager?.handlePushRegistrationFailure(error)
+}
+```
+
+Este trecho de código enviará o log para o servidor da Inngage sobre o recebimento do push.
+
+```swift
+func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any], fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+    pushNotificationManager?.handlePushReceived(userInfo, messageAlert: true)
 }
 ```
 
@@ -133,20 +116,22 @@ didReceiveRemoteNotification:(NSDictionary *)userInfo {
 No projeto, é necessário configurar uma nova extensão no seu arquivo raiz `.xcodeproj` diretamente pelo Xcode.
 Assim adicionando a extensão de `Notification Service Extension`.
 
-Uma nova sequência de arquivos será gerada. Caso o projeto seja na linguagem Objective-C, deverá ser adicionado o seguinte código no seguinte método:
+Uma nova sequência de arquivos será gerada. Caso o projeto seja na linguagem Swift, deverá ser adicionado o seguinte código no seguinte método:
 
-```objc
-- (void)didReceiveNotificationRequest:(UNNotificationRequest *)request withContentHandler:(void (^)(UNNotificationContent * _Nonnull))contentHandler {
-    self.contentHandler = contentHandler;
-    self.bestAttemptContent = [request.content mutableCopy];
-
-    [NotificationManager prepareNotificationWithRequest:request andBestAttemptContent: self.bestAttemptContent andCompletionHander:^(UNNotificationContent *bestAttemptContent) {
-        self.contentHandler(bestAttemptContent);
-    }];
+```swift
+override func didReceive(_ request: UNNotificationRequest, withContentHandler contentHandler: @escaping (UNNotificationContent) -> Void) {
+    self.contentHandler = contentHandler
+    bestAttemptContent = (request.content.mutableCopy() as? UNMutableNotificationContent)
+    
+    NotificationManager.prepareNotification(with: request, andBestAttempt: bestAttemptContent) { [weak self] (bestAttemptContent) in
+        if let bestAttemptContent = bestAttemptContent {
+            self?.contentHandler?(bestAttemptContent)
+        }
+    }
 }
 ```
 
-> É necessário importar a seguinte classe: `#import <Inngage/NotificationManager.h>`.
+> É necessário importar a seguinte classe: `import Inngage`.
 
 Este trecho de código irá realizar a configuração das notificações remotas quando chegarem para o usuário final.
 
@@ -155,15 +140,15 @@ Este trecho de código irá realizar a configuração das notificações remotas
 No projeto, é necessário configurar uma nova extensão no seu arquivo raiz `.xcodeproj` diretamente pelo Xcode.
 Assim adicionando a extensão de `Notification Content Extension`.
 
-Uma nova sequência de arquivos será gerada. Caso o projeto seja na linguagem Objective-C, deverá ser adicionado o seguinte código no seguinte método:
+Uma nova sequência de arquivos será gerada. Caso o projeto seja na linguagem Swift, deverá ser adicionado o seguinte código no seguinte método:
 
-```objc
-- (void)didReceiveNotification:(UNNotification *)notification {
-    [NotificationManager prepareNotificationContentWithNotification:notification andViewController:self];
+```swift
+func didReceive(_ notification: UNNotification) {
+    NotificationManager.prepareNotificationContent(with: notification, andViewController: self)
 }
 ```
 
-> É necessário importar a seguinte classe: `#import <Inngage/NotificationManager.h>`.
+> É necessário importar a seguinte classe: `import Inngage`.
 
 No arquivo de `Info.plist` é necessário informar um novo atributo, na seguinte categoria: `NSExtension`-> `NSExtensionAttributes`, com a seguinte chave `UNNotificationExtensionUserInteractionEnabled` e valor `YES`. Esse atributo permitirá que rich push notification tenham interações pelo usuário.
 
