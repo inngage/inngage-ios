@@ -1,1 +1,1 @@
-git "file://../../../inngage-ios" "feature/carthage"
+git "https://github.com/inngage/inngage-ios.git" "feature/carthage"

@@ -15,6 +15,7 @@
 		4F6FF71B25D3769B00239A40 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F6FF71925D3769B00239A40 /* LaunchScreen.storyboard */; };
 		4F6FF72625D3769B00239A40 /* ExampleCarthageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F6FF72525D3769B00239A40 /* ExampleCarthageTests.swift */; };
 		4F6FF73125D3769B00239A40 /* ExampleCarthageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F6FF73025D3769B00239A40 /* ExampleCarthageUITests.swift */; };
+		4F6FF77125D37AF900239A40 /* InngageIos.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 4F6FF74225D3796700239A40 /* InngageIos.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -49,6 +50,7 @@
 		4F6FF72C25D3769B00239A40 /* ExampleCarthageUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ExampleCarthageUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		4F6FF73025D3769B00239A40 /* ExampleCarthageUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleCarthageUITests.swift; sourceTree = "<group>"; };
 		4F6FF73225D3769B00239A40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4F6FF74225D3796700239A40 /* InngageIos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InngageIos.framework; path = ../../Carthage/Build/iOS/InngageIos.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -56,6 +58,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F6FF77125D37AF900239A40 /* InngageIos.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -83,6 +86,7 @@
 				4F6FF72425D3769B00239A40 /* ExampleCarthageTests */,
 				4F6FF72F25D3769B00239A40 /* ExampleCarthageUITests */,
 				4F6FF70C25D3769A00239A40 /* Products */,
+				4F6FF74125D3796700239A40 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -128,6 +132,14 @@
 			path = ExampleCarthageUITests;
 			sourceTree = "<group>";
 		};
+		4F6FF74125D3796700239A40 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				4F6FF74225D3796700239A40 /* InngageIos.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -138,6 +150,7 @@
 				4F6FF70725D3769A00239A40 /* Sources */,
 				4F6FF70825D3769A00239A40 /* Frameworks */,
 				4F6FF70925D3769A00239A40 /* Resources */,
+				4F6FF75E25D37A4400239A40 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -252,6 +265,27 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		4F6FF75E25D37A4400239A40 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 8;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Inngage.framework",
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks\n";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		4F6FF70725D3769A00239A40 /* Sources */ = {
@@ -438,6 +472,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VXJ6G7FDTJ;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = ExampleCarthage/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -446,7 +484,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = Inngage.ExampleCarthage;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Debug;
 		};
@@ -457,6 +495,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = VXJ6G7FDTJ;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = ExampleCarthage/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -465,7 +507,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = Inngage.ExampleCarthage;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = 1;
 			};
 			name = Release;
 		};
