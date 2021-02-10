@@ -5,7 +5,7 @@ import PackageDescription
 
 let package = Package(
     name: "InngageIos",
-    platforms: [.iOS(.v10)],
+    platforms: [.iOS(.v11)],
     products: [
         .library(
             name: "InngageIos",
@@ -17,9 +17,7 @@ let package = Package(
             name: "InngageIos",
             dependencies: [],
             path: "InngageIos",
-            cSettings: [
-                .headerSearchPath("Internal"),
-            ]),
+            publicHeadersPath: ""),
         .testTarget(
             name: "InngageIosTests",
             dependencies: ["InngageIos"]),
