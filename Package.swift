@@ -16,7 +16,10 @@ let package = Package(
         .target(
             name: "InngageIos",
             dependencies: [],
-            path: "InngageIos"),
+            path: "InngageIos",
+            cSettings: [
+                .headerSearchPath("Internal"),
+            ]),
         .testTarget(
             name: "InngageIosTests",
             dependencies: ["InngageIos"]),

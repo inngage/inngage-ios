@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "InngageIos",
+        "repositoryURL": "https://github.com/inngage/inngage-ios",
+        "state": {
+          "branch": "feature/swift-package",
+          "revision": "aaf016b054f930f5a98d731201dfdafa08bff764",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

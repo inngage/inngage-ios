@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,7 @@
 		4F7698F925D3385400436FF3 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4F7698F725D3385400436FF3 /* LaunchScreen.storyboard */; };
 		4F76990425D3385400436FF3 /* ExampleInngageSwiftPackageTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F76990325D3385400436FF3 /* ExampleInngageSwiftPackageTests.swift */; };
 		4F76990F25D3385400436FF3 /* ExampleInngageSwiftPackageUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4F76990E25D3385400436FF3 /* ExampleInngageSwiftPackageUITests.swift */; };
+		4F76992A25D365EB00436FF3 /* InngageIos in Frameworks */ = {isa = PBXBuildFile; productRef = 4F76992925D365EB00436FF3 /* InngageIos */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -56,6 +57,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4F76992A25D365EB00436FF3 /* InngageIos in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -145,6 +147,7 @@
 			);
 			name = ExampleInngageSwiftPackage;
 			packageProductDependencies = (
+				4F76992925D365EB00436FF3 /* InngageIos */,
 			);
 			productName = ExampleInngageSwiftPackage;
 			productReference = 4F7698E925D3385200436FF3 /* ExampleInngageSwiftPackage.app */;
@@ -218,6 +221,7 @@
 			);
 			mainGroup = 4F7698E025D3385200436FF3;
 			packageReferences = (
+				4F76992825D365EB00436FF3 /* XCRemoteSwiftPackageReference "inngage-ios" */,
 			);
 			productRefGroup = 4F7698EA25D3385200436FF3 /* Products */;
 			projectDirPath = "";
@@ -597,6 +601,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		4F76992825D365EB00436FF3 /* XCRemoteSwiftPackageReference "inngage-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/inngage/inngage-ios";
+			requirement = {
+				branch = "feature/swift-package";
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		4F76992925D365EB00436FF3 /* InngageIos */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 4F76992825D365EB00436FF3 /* XCRemoteSwiftPackageReference "inngage-ios" */;
+			productName = InngageIos;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 4F7698E125D3385200436FF3 /* Project object */;
 }
