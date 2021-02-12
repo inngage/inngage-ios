@@ -52,6 +52,7 @@
 		4F6FF73225D3769B00239A40 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		4F6FF74225D3796700239A40 /* InngageIos.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = InngageIos.framework; path = ../../Carthage/Build/iOS/InngageIos.framework; sourceTree = "<group>"; };
 		4F85263525D6B6E100AD3CAB /* ExampleCarthage-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "ExampleCarthage-Bridging-Header.h"; sourceTree = "<group>"; };
+
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
