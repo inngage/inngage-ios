@@ -10,13 +10,13 @@
 		4F2AF20025CCCEA9009D877B /* InngageIos.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F2AF1FE25CCCEA9009D877B /* InngageIos.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F2AF23625CCCEE5009D877B /* NotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2AF20925CCCEE5009D877B /* NotificationManager.m */; };
 		4F2AF23725CCCEE5009D877B /* FileLocation.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2AF20A25CCCEE5009D877B /* FileLocation.m */; };
-		4F2AF23825CCCEE5009D877B /* NotificationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F2AF20B25CCCEE5009D877B /* NotificationManager.h */; };
+		4F2AF23825CCCEE5009D877B /* NotificationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F2AF20B25CCCEE5009D877B /* NotificationManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F2AF23925CCCEE5009D877B /* FileLocation.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F2AF20C25CCCEE5009D877B /* FileLocation.h */; };
 		4F2AF23A25CCCEE5009D877B /* ic_close_3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 4F2AF20D25CCCEE5009D877B /* ic_close_3x.png */; };
 		4F2AF23B25CCCEE5009D877B /* WebViewViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F2AF21025CCCEE5009D877B /* WebViewViewController.h */; };
 		4F2AF23C25CCCEE5009D877B /* WebViewViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 4F2AF21125CCCEE5009D877B /* WebViewViewController.xib */; };
 		4F2AF23D25CCCEE5009D877B /* WebViewViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2AF21225CCCEE5009D877B /* WebViewViewController.m */; };
-		4F2AF23E25CCCEE5009D877B /* PushNotificationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F2AF21325CCCEE5009D877B /* PushNotificationManager.h */; };
+		4F2AF23E25CCCEE5009D877B /* PushNotificationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F2AF21325CCCEE5009D877B /* PushNotificationManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F2AF23F25CCCEE5009D877B /* AppManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F2AF21525CCCEE5009D877B /* AppManager.h */; };
 		4F2AF24025CCCEE5009D877B /* AppManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2AF21625CCCEE5009D877B /* AppManager.m */; };
 		4F2AF24125CCCEE5009D877B /* DeviceInformationData.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F2AF21825CCCEE5009D877B /* DeviceInformationData.h */; };
@@ -37,7 +37,7 @@
 		4F2AF25125CCCEE6009D877B /* MimeType.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F2AF22D25CCCEE5009D877B /* MimeType.h */; };
 		4F2AF25325CCCEE6009D877B /* MimeType.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2AF22F25CCCEE5009D877B /* MimeType.m */; };
 		4F2AF25425CCCEE6009D877B /* InngageAnimatedGIF.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2AF23125CCCEE5009D877B /* InngageAnimatedGIF.m */; };
-		4F2AF25525CCCEE6009D877B /* InngageAnimatedGIF.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F2AF23225CCCEE5009D877B /* InngageAnimatedGIF.h */; };
+		4F2AF25525CCCEE6009D877B /* InngageAnimatedGIF.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F2AF23225CCCEE5009D877B /* InngageAnimatedGIF.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4F2AF25625CCCEE6009D877B /* ServiceManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F2AF23425CCCEE5009D877B /* ServiceManager.m */; };
 		4F2AF25725CCCEE6009D877B /* ServiceManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4F2AF23525CCCEE5009D877B /* ServiceManager.h */; };
 /* End PBXBuildFile section */
@@ -276,17 +276,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				4F2AF24D25CCCEE6009D877B /* WebViewProgressView.h in Headers */,
+				4F2AF25525CCCEE6009D877B /* InngageAnimatedGIF.h in Headers */,
+				4F2AF23825CCCEE5009D877B /* NotificationManager.h in Headers */,
 				4F2AF23E25CCCEE5009D877B /* PushNotificationManager.h in Headers */,
 				4F2AF20025CCCEA9009D877B /* InngageIos.h in Headers */,
 				4F2AF23B25CCCEE5009D877B /* WebViewViewController.h in Headers */,
 				4F2AF25125CCCEE6009D877B /* MimeType.h in Headers */,
-				4F2AF23825CCCEE5009D877B /* NotificationManager.h in Headers */,
 				4F2AF23F25CCCEE5009D877B /* AppManager.h in Headers */,
 				4F2AF24E25CCCEE6009D877B /* HardwareManager.h in Headers */,
 				4F2AF24725CCCEE5009D877B /* URLSchemeManager.h in Headers */,
 				4F2AF23925CCCEE5009D877B /* FileLocation.h in Headers */,
 				4F2AF24925CCCEE6009D877B /* AlertManager.h in Headers */,
-				4F2AF25525CCCEE6009D877B /* InngageAnimatedGIF.h in Headers */,
 				4F2AF24C25CCCEE6009D877B /* WebViewProgress.h in Headers */,
 				4F2AF24125CCCEE5009D877B /* DeviceInformationData.h in Headers */,
 				4F2AF24225CCCEE5009D877B /* DeviceInformation.h in Headers */,
