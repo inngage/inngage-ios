@@ -33,7 +33,7 @@
 }
 
 - (id)init {
-    NSBundle *bundle = [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"InngageLibrary-Resources" withExtension:@"bundle"]];
+    NSBundle *bundle = [NSBundle bundleForClass: WebViewViewController.class];
     if ((self = [super initWithNibName:@"WebViewViewController" bundle:bundle])) {
     }
     return self;
