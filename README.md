@@ -36,6 +36,12 @@ Depois só executar o comando `pod install` no terminal, na pasta do projeto. A 
 
 > No projeto `Example` pode se verificar como o arquivo de `Podfile` foi escrito e atribuido os códigos descritos.
 
+Também é suportado a instalação via Carthage.
+
+```ruby
+git "https://github.com/inngage/inngage-ios.git"
+```
+
 # Configuração
 
 > Para configuração utilizando o projeto em Objective-C, consulte o arquivo `README_ObjectiveC.md`.
@@ -44,6 +50,8 @@ Depois só executar o comando `pod install` no terminal, na pasta do projeto. A 
 
 É necessário configurar o projeto para que possua o `Capabilities`, que se encontra no arquivo `.xcproject` aberto direto pela raiz do projeto no `Xcode` na aba `Signing & Capabilities`. Habilitando o `Push notification` e o `Background modes` os atributos `Background fetch` e `Remote notifications`.
 
+Outra configuração necessária, é a adição no arquivo `.xcproject` na aba `General`, na sessão de `Framework, Libraries, and Embedded Content` adicione a biblioteca `WebKit.framework`.
+
 ## Handle Notification
 
 No projeto, no arquivo `AppDelegate` é necessário fazer algumas configurações para o funcionamento do SDK, para sincronia com a plataforma Inngage.
@@ -51,7 +59,8 @@ No projeto, no arquivo `AppDelegate` é necessário fazer algumas configuraçõe
 É necessário importar o SDK: `import Inngage`
 
 Incluindo as seguintes variáveis de classe.
-```swift 
+
+```swift
 var pushNotificationManager = PushNotificationManager.sharedInstance()
 var userInfoDictionary: [String: Any]?
 ```
@@ -111,6 +120,29 @@ func application(_ application: UIApplication, didReceiveRemoteNotification user
 }
 ```
 
+Para que o banner de notificação apareça com o aplicativo em `foreground` adicione os seguintes códigos:
+
+```swift
+func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+
+    // Delegar as funções de notificação para a classe do AppDelegate.
+    UNUserNotificationCenter.current().delegate = self
+}
+```
+
+```swift
+extension AppDelegate: UNUserNotificationCenterDelegate {
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+           willPresent notification: UNNotification,
+           withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void)
+    {
+        completionHandler(.banner)
+    }
+
+}
+```
+
 ## Notification Service Extension
 
 No projeto, é necessário configurar uma nova extensão no seu arquivo raiz `.xcodeproj` diretamente pelo Xcode.
@@ -122,7 +154,7 @@ Uma nova sequência de arquivos será gerada. Caso o projeto seja na linguagem S
 override func didReceive(_ request: UNNotificationRequest, withContentHandler contentHandler: @escaping (UNNotificationContent) -> Void) {
     self.contentHandler = contentHandler
     bestAttemptContent = (request.content.mutableCopy() as? UNMutableNotificationContent)
-    
+
     NotificationManager.prepareNotification(with: request, andBestAttempt: bestAttemptContent) { [weak self] (bestAttemptContent) in
         if let bestAttemptContent = bestAttemptContent {
             self?.contentHandler?(bestAttemptContent)
