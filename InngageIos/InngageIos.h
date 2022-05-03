@@ -6,6 +6,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PushNotificationManager.h"
+#import "NotificationManager.h"
 
 //! Project version number for InngageIos.
 FOUNDATION_EXPORT double InngageIosVersionNumber;
