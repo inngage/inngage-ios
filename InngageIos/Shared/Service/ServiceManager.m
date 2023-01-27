@@ -18,6 +18,10 @@
         apiPath = @"/subscription/";
         apiEndpoint = [apiUrl stringByAppendingString:apiPath];
     }
+    if([apiEndpoint isEqualToString:@"sendEvent"]) {
+        apiPath = @"/events/newEvent/";
+        apiEndpoint = [apiUrl stringByAppendingString:apiPath];
+    }
 
     if([apiEndpoint isEqualToString:@"notification"]) {
         apiPath = @"/notification/";

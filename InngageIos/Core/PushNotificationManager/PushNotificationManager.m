@@ -41,6 +41,7 @@
 static  NSString *appToken = @"8c4c8a09a1b22ae18034b35f0cd8a18c";
 static  NSString *apiEndpoint = @"https://apid.inngage.com.br/v1/";
 static  NSString *subscription = @"https://apid.inngage.com.br/v1/subscription/";
+static  NSString *sendEvent = @"https://apid.inngage.com.br/v1/events/newEvent/";
 static  NSString *notificationCallBack = @"https://apid.inngage.com.br/v1/notification/";
 static  NSString *geolocation = @"https://apid.inngage.com.br/v1/geolocation/";
 
@@ -95,7 +96,7 @@ static BOOL alreadyShowedBackgroundRefreshDisabledAlert;
 
     NSString *token = [self convertDeviceTokenToString:deviceToken];
     
-    NSDictionary *jsonBody = [self registerSubscriberRequest:token identifier:nil customField:nil];
+    NSDictionary *jsonBody = [self registerSubscriberRequest:token identifier:nil email:nil phoneNumber:nil customField:nil];
 
     [[ServiceManager new] postDataToAPI:jsonBody apiEndpoint:@"subscription" apiUrl:self.inngageApiEndpoint logsEnabled:self.defineLogs];
 }
@@ -104,7 +105,7 @@ static BOOL alreadyShowedBackgroundRefreshDisabledAlert;
 
     NSString *token = [self convertDeviceTokenToString:deviceToken];
     
-    NSDictionary *jsonBody = [self registerSubscriberRequest:token identifier:identifier customField:nil];
+    NSDictionary *jsonBody = [self registerSubscriberRequest:token identifier:identifier  email:nil phoneNumber:nil customField:nil ];
     
     [[ServiceManager new] postDataToAPI:jsonBody apiEndpoint:@"subscription" apiUrl:self.inngageApiEndpoint logsEnabled:self.defineLogs];
 }
@@ -113,7 +114,7 @@ static BOOL alreadyShowedBackgroundRefreshDisabledAlert;
 
     NSString *token = [self convertDeviceTokenToString:deviceToken];
     
-    NSDictionary *jsonBody = [self registerSubscriberRequest:token identifier:nil customField:customField ];
+    NSDictionary *jsonBody = [self registerSubscriberRequest:token identifier:nil email:nil phoneNumber:nil customField:customField ];
     
     [[ServiceManager new] postDataToAPI:jsonBody apiEndpoint:@"subscription" apiUrl:self.inngageApiEndpoint logsEnabled:self.defineLogs];
 }
@@ -122,9 +123,57 @@ static BOOL alreadyShowedBackgroundRefreshDisabledAlert;
 
     NSString *token = [self convertDeviceTokenToString:deviceToken];
     
-    NSDictionary *jsonBody = [self registerSubscriberRequest:token identifier:identifier customField:customField];
+    NSDictionary *jsonBody = [self registerSubscriberRequest:token identifier:identifier  email:nil phoneNumber:nil customField:customField ];
     
     [[ServiceManager new] postDataToAPI:jsonBody apiEndpoint:@"subscription" apiUrl:self.inngageApiEndpoint logsEnabled:self.defineLogs];
+}
+- (void)handlePushRegistration:(NSData *)deviceToken identifier:(NSString *)identifier email:(NSString *)email phoneNumber:(NSString *)phoneNumber customField:(NSDictionary *)customField{
+
+    NSString *token = [self convertDeviceTokenToString:deviceToken];
+    
+    NSDictionary *jsonBody = [self registerSubscriberRequest:token identifier:identifier email:email phoneNumber:phoneNumber customField:customField];
+    
+    [[ServiceManager new] postDataToAPI:jsonBody apiEndpoint:@"subscription" apiUrl:self.inngageApiEndpoint logsEnabled:self.defineLogs];
+}
+- (void)handleSendEvent:(NSData *)deviceToken identifier:(NSString *)identifier eventName:(NSString *)eventName conversionValue:(NSNumber *)conversionValue registration:(NSString *)registration conversionEvent:(BOOL)conversionEvent conversionNotId:(NSString *)conversionNotId eventValues:(NSDictionary *)eventValues{
+
+    
+    
+    NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:
+                                         @{
+                                             @"app_token": @"",
+                                             @"identifier": @"",
+                                             @"eventName": @"",}
+                                         ];
+
+      if (deviceToken != nil) {
+          NSString *token = [self convertDeviceTokenToString:deviceToken];
+          [parameters setValue:token forKey:@"app_token"];
+      }
+    if (identifier != nil) {
+        [parameters setValue:identifier forKey:@"identifier"];
+    }
+    if (eventName != nil) {
+        [parameters setValue:eventName forKey:@"eventName"];
+    }
+   
+    if (conversionValue > 0) {
+        [parameters setValue:conversionValue forKey:@"conversionValue"];
+    }
+    if (registration != nil) {
+        [parameters setValue:registration forKey:@"registration"];
+    }
+    
+    if (conversionEvent > 0) {
+        [parameters setValue:@(conversionEvent) forKey:@"conversionEvent"];
+    }
+    if (conversionNotId != nil) {
+        [parameters setValue:conversionNotId forKey:@"conversionNotId"];
+    }
+    if (eventValues != nil) {
+        [parameters setObject:eventValues forKey:@"eventValues"];
+    }
+    [[ServiceManager new] postDataToAPI:@{@"newEventRequest":parameters} apiEndpoint:@"sendEvent" apiUrl:self.inngageApiEndpoint logsEnabled:self.defineLogs];
 }
 
 - (void)handlePushRegistrationFailure:(NSError *)error {
@@ -138,7 +187,7 @@ static BOOL alreadyShowedBackgroundRefreshDisabledAlert;
     [[UIApplication sharedApplication]registerForRemoteNotifications];
 }
 
-- (NSDictionary *)registerSubscriberRequest:(NSString *)deviceToken identifier:(NSString *)identifier customField:(NSDictionary *)customField {
+- (NSDictionary *)registerSubscriberRequest:(NSString *)deviceToken identifier:(NSString *)identifier email:(NSString *)email phoneNumber:(NSString *)phoneNumber customField:(NSDictionary *)customField {
 
     DeviceInformationData *deviceInformationData = [[DeviceInformation new] deviceInformation];
 
@@ -150,6 +199,9 @@ static BOOL alreadyShowedBackgroundRefreshDisabledAlert;
 
     return [deviceInformationData dictionaryWithDeviceToken:deviceToken andIdentifier:identifier andCustomField:customField];
 }
+
+
+
 
 - (NSDictionary*)notificationCallbackRequest:(NSString *)notificationId {
 
