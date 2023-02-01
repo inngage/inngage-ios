@@ -143,7 +143,7 @@ static BOOL alreadyShowedBackgroundRefreshDisabledAlert;
                                          @{
                                              @"app_token": @"",
                                              @"identifier": @"",
-                                             @"eventName": @"",}
+                                             @"event_name": @"",}
                                          ];
 
       if (deviceToken != nil) {
@@ -154,24 +154,24 @@ static BOOL alreadyShowedBackgroundRefreshDisabledAlert;
         [parameters setValue:identifier forKey:@"identifier"];
     }
     if (eventName != nil) {
-        [parameters setValue:eventName forKey:@"eventName"];
+        [parameters setValue:eventName forKey:@"event_name"];
     }
    
     if (conversionValue > 0) {
-        [parameters setValue:conversionValue forKey:@"conversionValue"];
+        [parameters setValue:conversionValue forKey:@"conversion_value"];
     }
     if (registration != nil) {
         [parameters setValue:registration forKey:@"registration"];
     }
     
     if (conversionEvent > 0) {
-        [parameters setValue:@(conversionEvent) forKey:@"conversionEvent"];
+        [parameters setValue:@(conversionEvent) forKey:@"conversion_event"];
     }
     if (conversionNotId != nil) {
-        [parameters setValue:conversionNotId forKey:@"conversionNotId"];
+        [parameters setValue:conversionNotId forKey:@"conversion_not_id"];
     }
     if (eventValues != nil) {
-        [parameters setObject:eventValues forKey:@"eventValues"];
+        [parameters setObject:eventValues forKey:@"event_values"];
     }
     [[ServiceManager new] postDataToAPI:@{@"newEventRequest":parameters} apiEndpoint:@"sendEvent" apiUrl:self.inngageApiEndpoint logsEnabled:self.defineLogs];
 }
