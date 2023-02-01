@@ -135,7 +135,9 @@ static BOOL alreadyShowedBackgroundRefreshDisabledAlert;
     
     [[ServiceManager new] postDataToAPI:jsonBody apiEndpoint:@"subscription" apiUrl:self.inngageApiEndpoint logsEnabled:self.defineLogs];
 }
-- (void)handleSendEvent:(NSData *)deviceToken identifier:(NSString *)identifier eventName:(NSString *)eventName conversionValue:(NSNumber *)conversionValue registration:(NSString *)registration conversionEvent:(BOOL)conversionEvent conversionNotId:(NSString *)conversionNotId eventValues:(NSDictionary *)eventValues{
+- (void)handleSendEvent:(NSData *)deviceToken identifier:(NSString *)identifier eventName:(NSString *)eventName 
+conversionValue:(NSNumber *)conversionValue registration:(NSString *)registration conversionEvent:(BOOL)conversionEvent 
+conversionNotId:(NSString *)conversionNotId eventValues:(NSDictionary *)eventValues{
 
     
     
@@ -168,7 +170,7 @@ static BOOL alreadyShowedBackgroundRefreshDisabledAlert;
         [parameters setValue:@(conversionEvent) forKey:@"conversion_event"];
     }
     if (conversionNotId != nil) {
-        [parameters setValue:conversionNotId forKey:@"conversion_not_id"];
+        [parameters setValue:conversionNotId forKey:@"conversion_notid"];
     }
     if (eventValues != nil) {
         [parameters setObject:eventValues forKey:@"event_values"];
