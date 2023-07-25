@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name = 'Inngage'
-  s.version = '1.0.2'
+  s.version = '1.0.4'
   s.license = 'MIT'
   s.summary = 'Inngage library'
   s.homepage = 'https://inngage.readme.io/docs/tutorial-de-integracao-ios'
