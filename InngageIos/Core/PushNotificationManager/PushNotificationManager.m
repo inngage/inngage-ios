@@ -135,23 +135,21 @@ static BOOL alreadyShowedBackgroundRefreshDisabledAlert;
     
     [[ServiceManager new] postDataToAPI:jsonBody apiEndpoint:@"subscription" apiUrl:self.inngageApiEndpoint logsEnabled:self.defineLogs];
 }
-- (void)handleSendEvent:(NSData *)deviceToken identifier:(NSString *)identifier eventName:(NSString *)eventName 
+- (void)handleSendEvent: (NSString *)appToken identifier:(NSString *)identifier eventName:(NSString *)eventName 
 conversionValue:(NSNumber *)conversionValue registration:(NSString *)registration conversionEvent:(BOOL)conversionEvent 
 conversionNotId:(NSString *)conversionNotId eventValues:(NSDictionary *)eventValues{
 
-    
-    
+    NSString *infoPlistAppToken = [[AppManager new] infoPlistAppToken];
+
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:
                                          @{
-                                             @"app_token": @"",
+                                             @"app_token": infoPlistAppToken,
                                              @"identifier": @"",
                                              @"event_name": @"",}
                                          ];
-
-      if (deviceToken != nil) {
-          NSString *token = [self convertDeviceTokenToString:deviceToken];
-          [parameters setValue:token forKey:@"app_token"];
-      }
+    if (appToken == nil){
+        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:@"O parametro 'appToken' e obrigatorio" userInfo:nil];
+    }
     if (identifier != nil) {
         [parameters setValue:identifier forKey:@"identifier"];
     }
@@ -163,9 +161,9 @@ conversionNotId:(NSString *)conversionNotId eventValues:(NSDictionary *)eventVal
         [parameters setValue:conversionValue forKey:@"conversion_value"];
     }
     if (registration != nil) {
-        [parameters setValue:registration forKey:@"registration"];
+        NSString *token = [self convertDeviceTokenToString:deviceToken];
+        [parameters setValue:token forKey:@"registration"];
     }
-    
     if (conversionEvent > 0) {
         [parameters setValue:@(conversionEvent) forKey:@"conversion_event"];
     }

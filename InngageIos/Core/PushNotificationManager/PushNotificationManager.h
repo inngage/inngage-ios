@@ -50,7 +50,7 @@ typedef NS_ENUM(NSInteger, CLLocationAccuracyType) {
 - (void)handlePushRegistration:(NSData *)deviceToken customField:(NSDictionary *)customField;
 - (void)handlePushRegistration:(NSData *)deviceToken identifier:(NSString *)identifier customField:(NSDictionary *)customField;
 - (void)handlePushRegistration:(NSData *)deviceToken identifier:(NSString *)identifier email:(NSString *)email phoneNumber:(NSString *)phoneNumber customField:(NSDictionary *)customField;
-- (void)handleSendEvent:(NSData *)deviceToken identifier:(NSString *)identifier eventName:(NSString *)eventName conversionValue:(NSString *)conversionValue registration:(NSString *)registration  conversionEvent:(NSString *)conversionEvent conversionNotId:(NSString *)conversionNotId eventValues:(NSDictionary *)eventValues;
+- (void)handleSendEvent:(NSString *)appToken identifier:(NSString *)identifier eventName:(NSString *)eventName conversionValue:(NSString *)conversionValue registration:(NSString *)registration  conversionEvent:(NSString *)conversionEvent conversionNotId:(NSString *)conversionNotId eventValues:(NSDictionary *)eventValues;
 - (void)handlePushRegisterForRemoteNotifications:(UIUserNotificationSettings *)notificationSettings;
 - (void)handlePushRegistrationFailure:(NSError *)error;
 - (void)handlePushReceived:(NSDictionary *)userInfo messageAlert:(BOOL)messageAlert;
