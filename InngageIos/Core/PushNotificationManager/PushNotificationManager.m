@@ -135,7 +135,7 @@ static BOOL alreadyShowedBackgroundRefreshDisabledAlert;
     
     [[ServiceManager new] postDataToAPI:jsonBody apiEndpoint:@"subscription" apiUrl:self.inngageApiEndpoint logsEnabled:self.defineLogs];
 }
-- (void)handleSendEvent: (NSString *)appToken identifier:(NSString *)identifier eventName:(NSString *)eventName 
+- (void)handleSendEvent:(NSData *)deviceToken identifier:(NSString *)identifier eventName:(NSString *)eventName 
 conversionValue:(NSNumber *)conversionValue registration:(NSString *)registration conversionEvent:(BOOL)conversionEvent 
 conversionNotId:(NSString *)conversionNotId eventValues:(NSDictionary *)eventValues{
 
@@ -143,13 +143,10 @@ conversionNotId:(NSString *)conversionNotId eventValues:(NSDictionary *)eventVal
 
     NSMutableDictionary *parameters = [[NSMutableDictionary alloc] initWithDictionary:
                                          @{
-                                             @"app_token": infoPlistAppToken,
+                                             @"app_token": infoPlistAppToken ? infoPlistAppToken : @"",
                                              @"identifier": @"",
                                              @"event_name": @"",}
                                          ];
-    if (appToken == nil){
-        @throw [NSException exceptionWithName:NSInvalidArgumentException reason:@"O parametro 'appToken' e obrigatorio" userInfo:nil];
-    }
     if (identifier != nil) {
         [parameters setValue:identifier forKey:@"identifier"];
     }
