@@ -135,9 +135,14 @@ static BOOL alreadyShowedBackgroundRefreshDisabledAlert;
     
     [[ServiceManager new] postDataToAPI:jsonBody apiEndpoint:@"subscription" apiUrl:self.inngageApiEndpoint logsEnabled:self.defineLogs];
 }
-- (void)handleSendEvent:(NSData *)deviceToken identifier:(NSString *)identifier eventName:(NSString *)eventName 
-conversionValue:(NSNumber *)conversionValue registration:(NSString *)registration conversionEvent:(BOOL)conversionEvent 
-conversionNotId:(NSString *)conversionNotId eventValues:(NSDictionary *)eventValues{
+- (void)handleSendEvent:(NSData *)deviceToken
+             identifier:(NSString *)identifier
+              eventName:(NSString *)eventName
+        conversionValue:(NSNumber *)conversionValue
+           registration:(NSString *)registration
+        conversionEvent:(BOOL)conversionEvent
+        conversionNotId:(NSString *)conversionNotId
+            eventValues:(NSDictionary *)eventValues {
 
     NSString *infoPlistAppToken = [[AppManager new] infoPlistAppToken];
 
@@ -161,9 +166,9 @@ conversionNotId:(NSString *)conversionNotId eventValues:(NSDictionary *)eventVal
         NSString *token = [self convertDeviceTokenToString:deviceToken];
         [parameters setValue:token forKey:@"registration"];
     }
-    if (conversionEvent > 0) {
-        [parameters setValue:@(conversionEvent) forKey:@"conversion_event"];
-    }
+    
+    [parameters setValue:@(conversionEvent) forKey:@"conversion_event"];
+    
     if (conversionNotId != nil) {
         [parameters setValue:conversionNotId forKey:@"conversion_notid"];
     }
