@@ -150,7 +150,8 @@ static BOOL alreadyShowedBackgroundRefreshDisabledAlert;
                                          @{
                                              @"app_token": infoPlistAppToken ? infoPlistAppToken : @"",
                                              @"identifier": @"",
-                                             @"event_name": @"",}
+                                             @"event_name": @"",
+                                             @"conversion_value": (conversionValue && [conversionValue floatValue] > 0) ? conversionValue : @0,}
                                          ];
     if (identifier != nil) {
         [parameters setValue:identifier forKey:@"identifier"];
@@ -158,17 +159,13 @@ static BOOL alreadyShowedBackgroundRefreshDisabledAlert;
     if (eventName != nil) {
         [parameters setValue:eventName forKey:@"event_name"];
     }
-   
-    if (conversionValue > 0) {
-        [parameters setValue:conversionValue forKey:@"conversion_value"];
-    }
     if (registration != nil) {
         NSString *token = [self convertDeviceTokenToString:deviceToken];
         [parameters setValue:token forKey:@"registration"];
     }
-    
+
     [parameters setValue:@(conversionEvent) forKey:@"conversion_event"];
-    
+
     if (conversionNotId != nil) {
         [parameters setValue:conversionNotId forKey:@"conversion_notid"];
     }

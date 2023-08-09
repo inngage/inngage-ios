@@ -53,7 +53,7 @@ typedef NS_ENUM(NSInteger, CLLocationAccuracyType) {
 - (void)handleSendEvent:(NSData *)deviceToken
              identifier:(NSString *)identifier
               eventName:(NSString *)eventName
-        conversionValue:(NSString *)conversionValue
+        conversionValue:(NSNumber *)conversionValue
            registration:(NSString *)registration
         conversionEvent:(BOOL)conversionEvent
         conversionNotId:(NSString *)conversionNotId
