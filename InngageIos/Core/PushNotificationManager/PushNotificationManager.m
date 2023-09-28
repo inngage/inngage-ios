@@ -280,7 +280,7 @@ static BOOL alreadyShowedBackgroundRefreshDisabledAlert;
                     }
                 }
                 
-                NSString *notificationId = aps[@"id"] ? aps[@"id"] : @"";
+                NSString *notificationId = aps[@"notid"] ? aps[@"notid"] : @"";
                 
                 if (self.defineLogs) {
                     NSLog(@"PushNotificationManager: function called handlePushReceived()");
